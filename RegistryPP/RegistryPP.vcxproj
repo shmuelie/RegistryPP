@@ -155,11 +155,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="key_entry.cpp" />
-    <ClCompile Include="RegistryPP.cpp" />
-    <ClCompile Include="value_entry.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="key_entry.h" />
     <ClInclude Include="registry_value_type.h" />
     <ClInclude Include="value_entry.h" />
