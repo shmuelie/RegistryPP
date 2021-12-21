@@ -2,7 +2,6 @@
 
 #include <iterator>
 #include <map>
-#include <memory>
 #include <Windows.h>
 #include <wil/result.h>
 #include "key_entry.h"
@@ -13,12 +12,12 @@ namespace win32::registry
 	{
 	public:
 		using iterator_category = std::random_access_iterator_tag;
-		using value_type = std::shared_ptr<key_entry>;
+		using value_type = key_entry;
 		using difference_type = uint32_t;
-		using pointer = std::shared_ptr<key_entry>*;
-		using reference = const std::shared_ptr<key_entry>&;
+		using pointer = key_entry*;
+		using reference = key_entry&;
 
-		key_entry_iterator(const std::shared_ptr<key_entry>& entry) : m_current(0), m_reserved(), m_entry(entry), m_sub_entries()
+		key_entry_iterator(const key_entry& entry) : m_current(0), m_reserved(), m_entry(entry), m_sub_entries()
 		{
 		};
 		reference operator *()
@@ -72,10 +71,9 @@ namespace win32::registry
 			}
 			WCHAR name[MAX_PATH] = TEXT("");
 			DWORD name_length = MAX_PATH;
-			THROW_IF_NTSTATUS_FAILED(RegEnumKeyEx(m_entry->m_self, i, name, &name_length, nullptr, nullptr, nullptr, nullptr));
-			auto sub_entry = m_entry->open(std::wstring{ name, name_length });
-			m_sub_entries[i] = sub_entry;
-			return sub_entry;
+			THROW_IF_NTSTATUS_FAILED(RegEnumKeyEx(m_entry.m_self, i, name, &name_length, nullptr, nullptr, nullptr, nullptr));
+			auto sub_entry = m_entry.open(std::wstring{ name, name_length });
+			//TODO: Add to map and return reference to value in map
 		}
 
 		difference_type                       m_current;

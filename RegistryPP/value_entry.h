@@ -9,33 +9,7 @@ namespace win32::registry
 	class basic_value_entry
 	{
 	public:
-		friend key_entry;
-
-		class iterator
-		{
-		public:
-			friend key_entry;
-
-			using iterator_category = std::input_iterator_tag;
-			using value_type = basic_value_entry;
-			using difference_type = ptrdiff_t;
-			using pointer = basic_value_entry*;
-			using reference = basic_value_entry;
-
-			explicit iterator(key_entry entry);
-
-			iterator& operator++();
-			bool operator==(iterator other) const;
-			bool operator!=(iterator other) const;
-			reference operator*() const;
-		private:
-			const HKEY m_parent;
-			uint32_t m_index;
-			uint32_t m_count;
-			uint32_t m_max_value_name_length;
-			uint32_t m_max_valu_data_length;
-		};
-
+		friend class basic_value_entry_iterator;
 		/**
 		 * @brief Gets the name of the value.
 		 * @return The name of the value.
@@ -52,6 +26,7 @@ namespace win32::registry
 	protected:
 		explicit basic_value_entry(const std::wstring& name, registry::registry_value_type type, const key_entry& parent);
 	private:
+		explicit basic_value_entry();
 		const std::wstring m_name;
 		const registry_value_type m_type;
 		const key_entry m_parent;

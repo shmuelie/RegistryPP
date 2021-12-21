@@ -27,6 +27,9 @@
     <ClInclude Include="key_entry_iterator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="basic_value_entry_iterator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

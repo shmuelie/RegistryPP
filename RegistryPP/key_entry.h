@@ -10,10 +10,11 @@ namespace win32::registry
 	/**
 	 * @brief A key in the registry.
 	*/
-	class key_entry : std::enable_shared_from_this<key_entry>
+	class key_entry
 	{
 	public:
 		friend class key_entry_iterator;
+		friend class basic_value_entry_iterator;
 
 		~key_entry();
 
@@ -22,42 +23,42 @@ namespace win32::registry
 		 * @return The HKEY_LOCAL_MACHINE key.
 		 * @exception wil::ResultException
 		*/
-		static std::shared_ptr<key_entry> open_local_machine();
+		static key_entry open_local_machine();
 
 		/**
 		 * @brief Opens the HKEY_CLASSES_ROOT root key.
 		 * @return Th HKEY_CLASSES_ROOT key.
 		 * @exception wil::ResultException
 		*/
-		static std::shared_ptr<key_entry> open_classes_root();
+		static key_entry open_classes_root();
 
 		/**
 		 * @brief Opens the HKEY_CURRENT_USER root key.
 		 * @return The HKEY_CURRENT_USER key.
 		 * @exception wil::ResultException
 		*/
-		static std::shared_ptr<key_entry> open_current_user();
+		static key_entry open_current_user();
 
 		/**
 		 * @brief Opens the HKEY_PERFORMANCE_DATA root key.
 		 * @return The HKEY_PERFORMANCE_DATA key.
 		 * @exception wil::ResultException
 		*/
-		static std::shared_ptr<key_entry> open_performance_data();
+		static key_entry open_performance_data();
 
 		/**
 		 * @brief Opens the HKEY_USERS root key.
 		 * @return The HKEY_USERS key.
 		 * @exception wil::ResultException
 		*/
-		static std::shared_ptr<key_entry> open_users();
+		static key_entry open_users();
 
 		/**
 		 * @brief Opens the HKEY_CURRENT_CONFIG root key.
 		 * @return The HKEY_CURRENT_CONFIG key.
 		 * @exception wil::ResultException
 		*/
-		static std::shared_ptr<key_entry> open_current_config();
+		static key_entry open_current_config();
 
 		/**
 		 * @brief Open a sub key.
@@ -65,7 +66,7 @@ namespace win32::registry
 		 * @return The sub key.
 		 * @exception wil::ResultException
 		*/
-		std::shared_ptr<key_entry> open(const std::wstring& name);
+		key_entry open(const std::wstring& name);
 
 		/**
 		 * @brief Gets the name of the key.
@@ -97,9 +98,12 @@ namespace win32::registry
 		*/
 		const std::chrono::system_clock::time_point& last_written() const;
 
+		bool operator ==(key_entry rhs) const;
+		bool operator !=(key_entry rhs) const;
+
 	private:
 		explicit key_entry(
-			const std::shared_ptr<key_entry>& parent,
+			const key_entry& parent,
 			const HKEY self,
 			const std::wstring& name,
 			const std::wstring& $class,
@@ -113,11 +117,11 @@ namespace win32::registry
 
 		static std::chrono::system_clock::time_point file_time_to_time_point(const FILETIME& ft);
 
-		static std::shared_ptr<key_entry> open(const std::shared_ptr<key_entry>& parent, HKEY self, const std::wstring& name);
+		static key_entry open(const key_entry& parent, HKEY self, const std::wstring& name);
 
-		static std::shared_ptr<key_entry> open_root(const HKEY self, const std::wstring& name);
+		static key_entry open_root(const HKEY self, const std::wstring& name);
 
-		const std::shared_ptr<key_entry>& m_parent;
+		const key_entry& m_parent;
 		const HKEY m_self;
 		const std::wstring& m_name;
 		const std::wstring& m_class;
