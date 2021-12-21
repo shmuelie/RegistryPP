@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="key_entry.h" />
+    <ClInclude Include="key_entry_iterator.h" />
     <ClInclude Include="registry_value_type.h" />
     <ClInclude Include="value_entry.h" />
   </ItemGroup>

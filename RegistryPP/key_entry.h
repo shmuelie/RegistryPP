@@ -1,11 +1,9 @@
 #pragma once
 
-#include <iterator>
 #include <Windows.h>
 #include <string>
 #include <chrono>
 #include <memory>
-#include <map>
 
 namespace win32::registry
 {
@@ -15,29 +13,7 @@ namespace win32::registry
 	class key_entry : std::enable_shared_from_this<key_entry>
 	{
 	public:
-		/**
-		 * @brief Iterator for a key's sub keys.
-		*/
-		class iterator
-		{
-		public:
-			using iterator_category = std::input_iterator_tag;
-			using value_type = std::shared_ptr<key_entry>;
-			using difference_type = ptrdiff_t;
-			using pointer = std::shared_ptr<key_entry>*;
-			using reference = const std::shared_ptr<key_entry>&;
-
-			explicit iterator(const std::shared_ptr<key_entry>& entry);
-
-			iterator& operator++();
-			bool operator==(iterator other) const;
-			bool operator!=(iterator other) const;
-			reference operator*() const;
-		private:
-			const std::shared_ptr<key_entry>& m_entry;
-			uint32_t m_index;
-			std::map<uint32_t, value_type> m_sub_entries;
-		};
+		friend class key_entry_iterator;
 
 		~key_entry();
 
