@@ -22,14 +22,13 @@ namespace win32::registry
 		*/
 		registry_value_type type() const;
 
-		key_entry parent() const;
 	protected:
 		explicit basic_value_entry(const std::wstring& name, registry::registry_value_type type, const key_entry& parent);
 	private:
 		explicit basic_value_entry();
-		const std::wstring m_name;
-		const registry_value_type m_type;
-		const key_entry m_parent;
+		std::wstring m_name;
+		registry_value_type m_type;
+		key_entry m_parent;
 	};
 
 	template<typename T>
@@ -50,8 +49,12 @@ namespace win32::registry
 			return m_data;
 		}
 
+		void data(T data)
+		{
+		}
+
 	private:
-		const T m_data;
+		T m_data;
 	};
 
 	using value_binary = value_entry<std::vector<BYTE>>;

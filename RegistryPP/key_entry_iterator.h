@@ -71,7 +71,7 @@ namespace win32::registry
 			}
 			WCHAR name[MAX_PATH] = TEXT("");
 			DWORD name_length = MAX_PATH;
-			THROW_IF_NTSTATUS_FAILED(RegEnumKeyEx(m_entry.m_self, i, name, &name_length, nullptr, nullptr, nullptr, nullptr));
+			THROW_IF_NTSTATUS_FAILED(RegEnumKeyEx(m_entry.self(), i, name, &name_length, nullptr, nullptr, nullptr, nullptr));
 			auto sub_entry = m_entry.open(std::wstring{ name, name_length });
 			//TODO: Add to map and return reference to value in map
 		}

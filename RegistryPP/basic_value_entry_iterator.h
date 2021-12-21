@@ -69,14 +69,14 @@ namespace win32::registry
 				return it->second;
 			}
 			std::vector<WCHAR> temp_name;
-			temp_name.resize(m_parent.m_max_value_name_length);
-			DWORD name_length = m_parent.m_max_value_name_length;
+			temp_name.resize(m_parent.max_value_name_length());
+			DWORD name_length = m_parent.max_value_name_length();
 			DWORD type = REG_NONE;
-			DWORD data_size = m_parent.m_max_value_data_length;
-			THROW_IF_NTSTATUS_FAILED(RegEnumValue(m_parent.m_self, i, temp_name.data(), &name_length, nullptr, &type, nullptr, &data_size));
+			DWORD data_size = m_parent.max_value_data_length();
+			THROW_IF_NTSTATUS_FAILED(RegEnumValue(m_parent.self(), i, temp_name.data(), &name_length, nullptr, &type, nullptr, &data_size));
 			std::vector<BYTE> data;
 			data.resize(data_size);
-			THROW_IF_NTSTATUS_FAILED(RegEnumValue(m_parent.m_self, i, temp_name.data(), &name_length, nullptr, &type, data.data(), &data_size));
+			THROW_IF_NTSTATUS_FAILED(RegEnumValue(m_parent.self(), i, temp_name.data(), &name_length, nullptr, &type, data.data(), &data_size));
 			std::wstring name{ temp_name.data(), name_length };
 			//TODO: Create value, add to map and return reference to value in map
 		}
