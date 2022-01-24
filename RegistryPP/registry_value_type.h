@@ -7,7 +7,7 @@ namespace win32::registry
 	/**
 	 * @brief Specifies the data types to use when storing values in the registry, or identifies the data type of a value in the registry.
 	 */
-	enum class registry_value_type
+	enum class registry_value_type : DWORD
 	{
 		none = REG_NONE,
 		/** Binary data in any form. */
@@ -25,10 +25,10 @@ namespace win32::registry
 		 /** A 64-bit unsigned number. */
 		 qword = REG_QWORD,
 		 /** A null-terminated string. */
-		 string = REG_SZ,
+		 string = REG_SZ
 		 /** A null-terminated Unicode string that contains the target path of a symbolic link that was created by calling the RegCreateKeyEx function with REG_OPTION_CREATE_LINK. */
-		 link = REG_LINK,
-		 resource_list = REG_RESOURCE_LIST,
-		 full_resource_descriptor = REG_FULL_RESOURCE_DESCRIPTOR
+		 //link = REG_LINK
+		 //resource_list = REG_RESOURCE_LIST,
+		 //full_resource_descriptor = REG_FULL_RESOURCE_DESCRIPTOR
 	};
 }
