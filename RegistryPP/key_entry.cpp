@@ -6,12 +6,6 @@ using namespace win32::registry;
 
 #define OPEN_ROOT(root) key_entry(nullptr, root, L#root)
 
-/**
-* @brief Opens the HKEY_LOCAL_MACHINE root key.
-* @return The HKEY_LOCAL_MACHINE key.
-* @exception wil::ResultException
-*/
-
 key_entry::~key_entry()
 {
 	if (m_data->m_parent)
@@ -20,6 +14,11 @@ key_entry::~key_entry()
 	}
 }
 
+/**
+* @brief Opens the HKEY_LOCAL_MACHINE root key.
+* @return The HKEY_LOCAL_MACHINE key.
+* @exception wil::ResultException
+*/
 key_entry key_entry::open_local_machine()
 {
 	return OPEN_ROOT(HKEY_LOCAL_MACHINE);
