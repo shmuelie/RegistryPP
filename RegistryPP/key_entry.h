@@ -1,5 +1,7 @@
 #pragma once
 
+#define WIN32_LEAN_AND_MEAN 1
+
 #include <Windows.h>
 #include <string>
 #include <chrono>
@@ -16,6 +18,10 @@ namespace win32::registry
 		friend class key_entry_iterator;
 		friend class value_entry_iterator;
 
+		/**
+		 * @brief
+		 *
+		 */
 		~key_entry();
 
 		/**
