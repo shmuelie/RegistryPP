@@ -16,7 +16,7 @@ key_entry_iterator::reference key_entry_iterator::get(difference_type i)
 	WCHAR name[MAX_PATH] = TEXT("");
 	DWORD name_length = MAX_PATH;
 	THROW_IF_NTSTATUS_FAILED(RegEnumKeyEx(m_entry.self(), i, name, &name_length, nullptr, nullptr, nullptr, nullptr));
-	auto sub_entry = m_entry.open(std::wstring{ name, name_length });
+	auto sub_entry = m_entry.open_subkey(std::wstring{ name, name_length });
 	return m_sub_entries.insert_or_assign(i, sub_entry).first->second;
 }
 

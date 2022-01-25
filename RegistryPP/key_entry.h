@@ -66,7 +66,7 @@ namespace win32::registry
 		 * @return The sub key.
 		 * @exception wil::ResultException
 		*/
-		key_entry open(const std::wstring& name) const;
+		key_entry open_subkey(const std::wstring& name) const;
 
 		/**
 		 * @brief Gets the name of the key.

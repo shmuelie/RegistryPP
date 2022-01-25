@@ -87,7 +87,7 @@ key_entry key_entry::open_current_config()
 * @exception wil::ResultException
 */
 
-key_entry key_entry::open(const std::wstring& name) const
+key_entry key_entry::open_subkey(const std::wstring& name) const
 {
 	HKEY self;
 	THROW_IF_NTSTATUS_FAILED(RegOpenKeyEx(m_data->m_self, name.c_str(), 0, KEY_READ | KEY_WRITE, &self));
