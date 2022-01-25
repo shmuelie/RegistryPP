@@ -44,7 +44,7 @@ namespace win32::registry
 		explicit value_entry(const std::wstring& name, const key_entry& parent);
 		std::wstring m_name;
 		registry_value_type m_type;
-		byte m_reserved[4]{};
+		uint8_t m_reserved[4]{};
 		key_entry m_parent;
 		std::variant<std::vector<uint8_t>, uint32_t, uint64_t, std::wstring, std::vector<std::wstring>, std::nullptr_t> m_data;
 	};
