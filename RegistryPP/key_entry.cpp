@@ -163,7 +163,7 @@ bool key_entry::operator!=(key_entry rhs) const
 
 bool win32::registry::key_entry::is_root() const
 {
-	return (bool)m_data->m_parent;
+	return !(bool)m_data->m_parent;
 }
 
 std::chrono::system_clock::time_point filetime_to_time_point(const FILETIME& ft)
