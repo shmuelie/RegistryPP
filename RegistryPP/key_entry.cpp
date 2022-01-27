@@ -239,7 +239,7 @@ win32::registry::key_entry::data::~data()
 {
 	if (m_parent)
 	{
-		LOG_NTSTATUS(RegCloseKey(m_self));
+		LOG_IF_NTSTATUS_FAILED(RegCloseKey(m_self));
 	}
 }
 
