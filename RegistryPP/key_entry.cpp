@@ -6,14 +6,6 @@ using namespace win32::registry;
 
 #define OPEN_ROOT(root) key_entry(nullptr, root, L#root)
 
-key_entry::~key_entry()
-{
-	if (m_data->m_parent)
-	{
-		LOG_NTSTATUS(RegCloseKey(m_data->m_self));
-	}
-}
-
 /**
 * @brief Opens the HKEY_LOCAL_MACHINE root key.
 * @return The HKEY_LOCAL_MACHINE key.
@@ -215,6 +207,14 @@ key_entry::data::data(const std::shared_ptr<data> parent, HKEY self, const std::
 		&last_written));                     // last write time
 	m_last_written = filetime_to_time_point(last_written);
 	m_class = std::wstring{ $class, class_length };
+}
+
+win32::registry::key_entry::data::~data()
+{
+	if (m_parent)
+	{
+		LOG_NTSTATUS(RegCloseKey(m_self));
+	}
 }
 
 key_entry::key_entry(const std::shared_ptr<data> parent, HKEY self, const std::wstring& name) :

@@ -19,12 +19,6 @@ namespace win32::registry
 		friend class value_entry_iterator;
 
 		/**
-		 * @brief
-		 *
-		 */
-		~key_entry();
-
-		/**
 		 * @brief Opens the HKEY_LOCAL_MACHINE root key.
 		 * @return The HKEY_LOCAL_MACHINE key.
 		 * @exception wil::ResultException
@@ -112,6 +106,8 @@ namespace win32::registry
 		{
 		public:
 			explicit data(const std::shared_ptr<data> parent, HKEY self, const std::wstring& name);
+
+			~data();
 
 			std::shared_ptr<data> m_parent;
 			HKEY m_self;
