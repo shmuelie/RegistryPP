@@ -8,7 +8,7 @@
 
 namespace win32::registry
 {
-	class key_entry_iterator
+	class DllExport key_entry_iterator
 	{
 	public:
 		using iterator_category = std::random_access_iterator_tag;

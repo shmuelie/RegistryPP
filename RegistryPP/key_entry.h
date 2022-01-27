@@ -7,12 +7,19 @@
 #include <chrono>
 #include <memory>
 
+#ifdef _DLL
+#define DllExport __declspec( dllexport )
+#else
+#define DllExport
+#endif // _DLL
+
+
 namespace win32::registry
 {
 	/**
 	 * @brief A key in the registry.
 	*/
-	class key_entry
+	class DllExport key_entry
 	{
 	public:
 		friend class key_entry_iterator;
@@ -108,7 +115,7 @@ namespace win32::registry
 		bool is_root() const;
 
 	private:
-		struct data
+		struct DllExport data
 		{
 		public:
 			explicit data(const std::shared_ptr<data> parent, HKEY self, const std::wstring& name);

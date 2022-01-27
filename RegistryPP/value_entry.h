@@ -7,7 +7,7 @@
 
 namespace win32::registry
 {
-	class value_entry
+	class DllExport value_entry
 	{
 	public:
 		friend class value_entry_iterator;

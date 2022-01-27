@@ -7,7 +7,7 @@ namespace win32::registry
 	/**
 	 * @brief Specifies the data types to use when storing values in the registry, or identifies the data type of a value in the registry.
 	 */
-	enum class registry_value_type : DWORD
+	enum class DllExport registry_value_type : DWORD
 	{
 		none = REG_NONE,
 		/** Binary data in any form. */
