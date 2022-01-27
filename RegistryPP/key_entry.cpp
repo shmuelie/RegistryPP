@@ -166,6 +166,15 @@ bool win32::registry::key_entry::is_root() const
 	return !(bool)m_data->m_parent;
 }
 
+std::wstring win32::registry::key_entry::path() const
+{
+	if (is_root())
+	{
+		return name();
+	}
+	return parent().path() + L"\\" + name();
+}
+
 std::chrono::system_clock::time_point filetime_to_time_point(const FILETIME& ft)
 {
 	// number of seconds

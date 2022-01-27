@@ -16,5 +16,17 @@ namespace RegistryPPTests
 			auto key = key_entry::open_classes_root();
 			Assert::AreEqual(key.name(), std::wstring{ L"HKEY_CLASSES_ROOT" });
 		}
+
+		TEST_METHOD(RootKeyPathTest)
+		{
+			auto key = key_entry::open_classes_root();
+			Assert::AreEqual(key.path(), std::wstring{ L"HKEY_CLASSES_ROOT" });
+		}
+
+		TEST_METHOD(KeyPathTest)
+		{
+			auto key = key_entry::open_classes_root().open_subkey(L".txt");
+			Assert::AreEqual(key.path(), std::wstring{ L"HKEY_CLASSES_ROOT\\.txt" });
+		}
 	};
 }

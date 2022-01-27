@@ -114,6 +114,15 @@ namespace win32::registry
 		 */
 		bool is_root() const;
 
+		/**
+		 * @brief Gets the path of the registry key.
+		 *
+		 * Same as name for root keys.
+		 *
+		 * @return The path of the registry key.
+		 */
+		std::wstring path() const;
+
 	private:
 		struct DllExport data
 		{
