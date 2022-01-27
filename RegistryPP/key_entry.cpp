@@ -137,12 +137,33 @@ std::chrono::system_clock::time_point& key_entry::last_written() const
 
 bool key_entry::operator==(key_entry rhs) const
 {
-	return m_data->m_self == rhs.m_data->m_self;
+	if (is_root())
+	{
+		return m_data->m_self == rhs.m_data->m_self;
+	}
+	if (rhs.is_root())
+	{
+		return false;
+	}
+	return name() == rhs.name() && parent() == rhs.parent();
 }
 
 bool key_entry::operator!=(key_entry rhs) const
 {
-	return m_data->m_self != rhs.m_data->m_self;
+	if (is_root())
+	{
+		return m_data->m_self != rhs.m_data->m_self;
+	}
+	if (rhs.is_root())
+	{
+		return false;
+	}
+	return parent() != rhs.parent() || name() != rhs.name();
+}
+
+bool win32::registry::key_entry::is_root() const
+{
+	return (bool)m_data->m_parent;
 }
 
 std::chrono::system_clock::time_point filetime_to_time_point(const FILETIME& ft)
@@ -185,6 +206,11 @@ HKEY key_entry::self() const
 	return m_data->m_self;
 }
 
+key_entry win32::registry::key_entry::parent() const
+{
+	return key_entry{ m_data->m_parent };
+}
+
 key_entry::data::data(const std::shared_ptr<data> parent, HKEY self, const std::wstring& name) :
 	m_parent(parent), m_self(self), m_name(name)
 {
@@ -219,5 +245,10 @@ win32::registry::key_entry::data::~data()
 
 key_entry::key_entry(const std::shared_ptr<data> parent, HKEY self, const std::wstring& name) :
 	m_data(std::make_shared<data>(parent, self, name))
+{
+}
+
+key_entry::key_entry(const std::shared_ptr<data> self_data) :
+	m_data(self_data)
 {
 }

@@ -101,6 +101,12 @@ namespace win32::registry
 		bool operator ==(key_entry rhs) const;
 		bool operator !=(key_entry rhs) const;
 
+		/**
+		 * @brief Gets whether the entry is a root entry or not.
+		 * @return true if the entry is a root entry; otherwise false.
+		 */
+		bool is_root() const;
+
 	private:
 		struct data
 		{
@@ -124,6 +130,8 @@ namespace win32::registry
 
 		explicit key_entry(const std::shared_ptr<data> parent, HKEY self, const std::wstring& name);
 
+		explicit key_entry(const std::shared_ptr<data> self_data);
+
 		uint32_t max_sub_key_name_length() const;
 
 		uint32_t max_class_length() const;
@@ -133,6 +141,8 @@ namespace win32::registry
 		uint32_t max_value_data_length() const;
 
 		HKEY self() const;
+
+		key_entry parent() const;
 
 		std::shared_ptr<data> m_data;
 	};
